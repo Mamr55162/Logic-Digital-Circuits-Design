@@ -15,4 +15,5 @@
 | 1 | 1 | 1 |  1  |   1   |
 
 Sum = A $\oplus$ B $\oplus$ C
+
 Carry = ( A $\cdot$ B ) + ( A $\oplus$ B) $\cdot$ C
