@@ -12,8 +12,7 @@ This class focuses on implementing different types of indicators to use on the o
          cout << "LED is OFF\n";
    }
 ```
-It is easy, readable and manageable. For Multisim design, a LED can be found in Diodes section in a subsection named LED, you can use LED_blue, LED_red, etc., each color has its own forward voltage and current, make sure to connect the
-anode of the LED with the output of the circuit or gate you are using, and connect the cathode directly to a ground.
+It is easy, readable and manageable. For Multisim design, a LED can be found in Diodes section in a subsection named LED, you can use LED_blue, LED_red, etc., each color has its own forward voltage and current, make sure to connect the anode of the LED with the output of the circuit or gate you are using, and connect the cathode directly to a ground.
 
 <img width="257" height="167" alt="image" src="https://github.com/user-attachments/assets/c88be3ce-b746-42aa-b952-40865b10cb3e" />
 
