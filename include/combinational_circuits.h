@@ -9,14 +9,19 @@ using namespace std;
 
 class Wire
 {
-public:
+private:
    bool value = false;
+
+public:
+   void set(bool v) { value = v; }
+   bool get() const { return value; }
 };
 
-//Use LED as indicator for HIGH (1) and LOW (0) outputs.
+//Multiple Indicators class.
 class Indicator
 {
 public:
+   //Use LED as indicator for HIGH (1) and LOW (0) outputs.
    static void LED(bool val)
    {
       if (val == true)
@@ -24,7 +29,103 @@ public:
       else
          cout << "LED is OFF\n";
    }
+   //Print the binary value(s).
+   static void Binary(bool val)
+   {
+      cout << val;
+   }
+   static void BinaryVector(const vector<bool>& bits)
+   {
+      for (bool b : bits)
+         cout << b;
+
+      cout << '\n';
+   }
+   //Detect whether a wire is HIGH (1) or LOW (0).
+   static void Probe(bool val)
+   {
+      cout << (val ? "HIGH" : "LOW") << endl;
+   }
+   //Print decimal equivalent of BCD.
+   static void Decimal(const bitset<4>& bcd)
+   {
+      cout << bcd.to_ulong() << endl;
+   }
+   //Bus Monitor.
+   static void Bus(const bitset<4>& bus)
+   {
+      cout << "BUS: " << bus << endl;
+   }
 };
+
+//Print two-input gates truth tables.
+class TruthTable
+{
+public:
+   static void ANDTruthTable()
+   {
+      cout << "A  B | F\n";
+      cout << "0  0 | 0\n";
+      cout << "0  1 | 0\n";
+      cout << "1  0 | 0\n";
+      cout << "1  1 | 1\n";
+   }
+   static void ORTruthTable()
+   {
+      cout << "A  B | F\n";
+      cout << "0  0 | 0\n";
+      cout << "0  1 | 1\n";
+      cout << "1  0 | 1\n";
+      cout << "1  1 | 1\n";
+   }
+   static void NANDTruthTable()
+   {
+      cout << "A  B | F\n";
+      cout << "0  0 | 1\n";
+      cout << "0  1 | 1\n";
+      cout << "1  0 | 1\n";
+      cout << "1  1 | 0\n";
+   }
+   static void NORTruthTable()
+   {
+      cout << "A  B | F\n";
+      cout << "0  0 | 1\n";
+      cout << "0  1 | 0\n";
+      cout << "1  0 | 0\n";
+      cout << "1  1 | 0\n";
+   }
+   static void XORTruthTable()
+   {
+      cout << "A  B | F\n";
+      cout << "0  0 | 0\n";
+      cout << "0  1 | 1\n";
+      cout << "1  0 | 1\n";
+      cout << "1  1 | 0\n";
+   }
+   static void XNORTruthTable()
+   {
+      cout << "A  B | F\n";
+      cout << "0  0 | 1\n";
+      cout << "0  1 | 0\n";
+      cout << "1  0 | 0\n";
+      cout << "1  1 | 1\n";
+   }
+   static void NOTTruthTable()
+   {
+      cout << "A | F\n";
+      cout << "0 | 1\n";
+      cout << "1 | 0\n";
+   }
+   static void Tri_stateTruthTable()
+   {
+      cout << "EN  A | F\n";
+      cout << "0  0 | Hi-Z\n";
+      cout << "0  1 | Hi-z\n";
+      cout << "1  0 | 0\n";
+      cout << "1  1 | 1\n";
+   }
+};
+
 
 //Universal gate NAND implementation.
 class NAND
