@@ -41,7 +41,7 @@ moving to the more complex operations built on logic gates, then finally impleme
 - Multisim circuit schematics included
 
 ## 💻 How to use it?
-until now, the only way to try it is through a terminal by compiling and running the .cpp file, I am currently still working on a GUI for the project.
+Until now, the only way to try it is through a terminal by compiling and running the .cpp file, I am currently still working on a GUI for the project.
 
 ## ⏳ Future Improvements
 
