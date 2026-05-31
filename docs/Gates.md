@@ -37,6 +37,9 @@ Here I use one NAND with the same input (tied two-input) to produce the compleme
 
 <img width="183" height="43" alt="image" src="https://github.com/user-attachments/assets/9f2f22c9-5ca4-4b7c-a0ec-abeabbc5335c" />
 
+
+
+
 * OR Gate: implemented using three NAND gates, two for inverting inputs working as NOT gates, and a usual one, so when you apply De Morgan's law the product becomes sum and the complements cancel, see the following code snippet:
 ```cpp
 static bool OR(bool A, bool B)
