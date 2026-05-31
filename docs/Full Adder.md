@@ -20,3 +20,13 @@ Carry = ( A $\cdot$ B ) + ( A $\oplus$ B) $\cdot$ C
 
 ## Circuit Structure
 ![Full Adder](https://www.build-electronic-circuits.com/wp-content/uploads/2022/10/fullAdder-1.png)
+
+## Code Walkthrough
+  The code in full adder is nearly the same as half adder except for the Carry input, here is the code snippet
+```
+C++
+    bool sum = Gates::XOR(Gates::XOR(A,B),C);
+    bool carry = Gates::OR(Gates::AND(A,B),Gates::AND(Gates::XOR(A,B),C));
+    return {sum, carry};
+```
+The function returns a vector of boolean values, first the sum which is computed by XORing the three inputs, and then the carry which is computed using the equation mentioned in ***Truth Table & Boolean Expressions*** section.
