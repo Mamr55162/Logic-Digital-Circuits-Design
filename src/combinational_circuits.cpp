@@ -2,7 +2,6 @@
 #include "combinational_circuits.h"
 #include <bitset>
 #include <vector>
-#include <cmath>
 
 //Implement the Half Adder circuit.
 vector<bool> combinational_circuits::Half_Adder(bool A, bool B)
