@@ -14,7 +14,7 @@
 | 1 | 1 | 0 |  0  |   1   |
 | 1 | 1 | 1 |  1  |   1   |
 
-*Sum = A $\oplus$ B $\oplus$ Cin*
+*Sum = A \oplus B $\oplus$ Cin*
 
 *Cout = AB + (A $\oplus$ B)Cin*
 
