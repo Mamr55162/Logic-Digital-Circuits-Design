@@ -48,3 +48,16 @@ A digital probe can be used in Multisim in the Indicator section under the Probe
 <img width="265" height="247" alt="Screenshot 2026-06-01 015503" src="https://github.com/user-attachments/assets/83a42e4f-c4be-4465-aaff-35f44aa41b12" />
 
 ***A PROBE_DIG connected to XOR gate with LOW output***
+
+* **Decimal**: This indicator is more useful and applicable than the Binary and BinaryVector ones, it accepts BCD digits and converts them to a decimal value using the function ``` to_ulong() ``` from the header ``` <bitset> ```, which accepts a binary value and returns the decimal equivalent, see the following code snippet:
+```cpp
+static void Decimal(const bitset<4>& bcd)
+   {
+      cout << bcd.to_ulong() << endl;
+   }
+```
+A decimal display in multisim can be found in Indicators section, under the HEX_DISPLAY subsection, named DCD_HEX, it can be found with many colors variations, it has four pins, each pin connects to a certain binary digit to output the number in decimal, this indicator is most applicable in decoder, MUX circuits and ICs that has too many output pins.
+
+<img width="648" height="534" alt="image" src="https://github.com/user-attachments/assets/09c0aa30-0ba0-4131-a142-fc946ece459a" />
+
+***A DCD_HEX connected to four interactive digital constant sources starting from the right (LSB) to the left (MSB) it outputs 5 which is decoded from 0101***
