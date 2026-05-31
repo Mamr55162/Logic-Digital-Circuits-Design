@@ -55,15 +55,30 @@ static bool AND(bool A, bool B)
       return NAND(NAND(A, B), NAND(A, B));
    }
 ```
-Here the inner NAND gate compute a normal NAND, the outer NAND works as an inverter because it takes the same input twice, so logically we did one NAND operation then we inverted it to become an AND, another implementation more logical would be:
-```cpp
-static bool AND(bool A, bool B)
-   {
-      bool out_invert = NAND(A,B);
-      return NAND(out_invert, out_invert);
-   }
-```
-It takes more lines but it lays out the complete step-by-step logic.
+Here the inner NAND gate compute a normal NAND, the outer NAND works as an inverter because it takes the same input twice, so logically we did one NAND operation then we inverted it to become an AND.
+
 
 <img width="236" height="51" alt="image" src="https://github.com/user-attachments/assets/90a606f7-a316-487d-b6fb-abfa91f51996" />
 
+
+* **NOR Gate**: implemented using four NAND gates, two for inverting the inputs, one usual NAND, and another inverter at the output, first two inverters complement the input then a usual NAND gate produces a normal OR operation, the last inverter puts the complement on the output to become NOR, see the following code snippet:
+```cpp
+static bool NOR(bool A, bool B)
+   {
+      return NAND(NAND(NAND(A, A), NAND(B, B)),
+                           NAND(NAND(A, A), NAND(B, B)));
+   }
+```
+Here the we use 6 NAND calls, the innermost 2 invert the inputs, the outer 2 perform NAND operation and the outermost 2 invert the output, a more logical code would be like the following:
+```cpp
+static bool NOR(bool A, bool B)
+   {
+      A = NAND(A,A);
+      B = NAND(B,B);
+      out_invert = NAND(A,B);
+      return NAND(out_invert, out_invert);
+   }
+```
+It takes more lines but it shows the exact logical step-by-step procedure and each gate in the design independently.
+
+<img width="293" height="81" alt="image" src="https://github.com/user-attachments/assets/18e072c9-d491-497e-a569-d033014e34f9" />
