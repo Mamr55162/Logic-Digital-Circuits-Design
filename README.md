@@ -5,7 +5,7 @@ A C++ implementation of both combinational and sequential logic circuits.
 
 ## What does it consist of?
 This project focuses mainly on implementing ICs both combinational & sequential, starting from simple logic gates
-moving to the more complex operations built on logic gates, then finally implementing a real-life IC that applies the wanted operation.
+moving to the more complex operations built on logic gates, then finally implementing a real-life IC that applies the logic as needed.
 
 ## What was used in this project?
 I used C++ programming language with **JetBrains CLion** as the IDE, NI Multisim as a simulator.
