@@ -128,6 +128,7 @@ public:
 
 
 //Universal gate NAND implementation.
+/*
 class NAND
 {
 public:
@@ -136,50 +137,61 @@ public:
       return !(A & B);
    }
 };
-
+*/
 //Implement NOT, OR, AND, NOR, XOR, XNOR, Tri-state gates using NAND gate only.
 class Gates
 {
 public:
+   static bool NAND(bool A, bool B)
+   {
+      return !(A & B);
+   }
    static bool NOT(bool A)
    {
-      return NAND::compute(A, A);
+      return NAND(A, A);
    }
    static bool OR(bool A, bool B)
    {
-      return NAND::compute(NAND::compute(A,A), NAND::compute(B, B));
+      return NAND(NAND(A,A), NAND(B, B));
    }
    static bool AND(bool A, bool B)
    {
-      return NAND::compute(NAND::compute(A, B), NAND::compute(A, B));
+      return NAND(NAND(A, B), NAND(A, B));
    }
    static bool NOR(bool A, bool B)
    {
-      return NAND::compute(NAND::compute(NAND::compute(A, A), NAND::compute(B, B)),
-                           NAND::compute(NAND::compute(A, A), NAND::compute(B, B)));
+      return NAND(NAND(NAND(A, A), NAND(B, B)),
+                           NAND(NAND(A, A), NAND(B, B)));
    }
    static bool XOR(bool A, bool B)
    {
-      bool x = NAND::compute(A, B);
-      bool y = NAND::compute(A, x);
-      bool z = NAND::compute(B, x);
-      return NAND::compute(y, z);
+      bool x = NAND(A, B);
+      bool y = NAND(A, x);
+      bool z = NAND(B, x);
+      return NAND(y, z);
    }
    static bool XNOR(bool A, bool B)
    {
-      return NAND::compute(NAND::compute(NAND::compute(NAND::compute(A, A), B), NAND::compute(NAND::compute(B, B), A)),
-                           NAND::compute(NAND::compute(NAND::compute(A, A), B), NAND::compute(NAND::compute(B, B), A)));
+      bool x = NAND(A, B);
+      bool y = NAND(A, x);
+      bool z = NAND(B, x);
+      bool out_invert = NAND(y, z);
+      return NAND(out_invert, out_invert);
    }
-   static bool Tri_state(bool A, bool EN)
-   {
-      if (!EN)
-      {
-         cout << "High Impedance\n";
-         return 0;
-      }
-      else
-         return Gates::AND(A,EN);
-   }
+  enum TriState
+    {
+        LOW = 0,
+        HIGH = 1,
+        HIGH_Z
+    };
+
+    static TriState Tri_state(bool A, bool EN)
+    {
+        if (!EN)
+            return HIGH_Z;
+
+        return A ? HIGH : LOW;
+    }
 };
 
 
