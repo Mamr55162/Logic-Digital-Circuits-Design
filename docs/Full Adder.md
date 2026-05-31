@@ -50,5 +50,5 @@ For the simulation in multisim, 3 Vcc 5.0V sources were used, each for an input,
 ![Logic Converter with output connected to sum]<img width="568" height="386" alt="image" src="https://github.com/user-attachments/assets/2bd9c970-70e4-46b7-857b-b4f7fcd5c9a5" />
 
 
->![Note]
+>[!Note]
 > Do not connect the Logic Converter pins directly to the Vcc before the DIP switch, connect them with a junction after the DIP switch.
