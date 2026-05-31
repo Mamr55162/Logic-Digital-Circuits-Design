@@ -28,7 +28,7 @@ bool sum = Gates::XOR(Gates::XOR(A,B),C);
 bool carry = Gates::OR(Gates::AND(A,B),Gates::AND(Gates::XOR(A,B),C));
 return {sum, carry};
 ```
-The function returns a vector of boolean values, first the sum which is computed by XORing the three inputs, and then the carry which is computed using the equation mentioned in ***Truth Table & Boolean Expressions*** section.
+The function returns a vector of boolean values, first the sum which is computed by XORing the three inputs, and then the carry which is computed using the equation mentioned in ***Truth Table & Boolean Expressions*** section. All the gates used in **Gates** class are internally designed using only NAND gate.
 
 ## Example Usage
   The following code snippet provides an example
