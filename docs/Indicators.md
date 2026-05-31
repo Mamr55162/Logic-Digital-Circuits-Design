@@ -70,6 +70,6 @@ static void Bus(const bitset<4>& bus)
    }
 ```
 >[!NOTE]
->Do not reverse the LED polarity and always check for a ground connection.
->You don't have to worry about resistors, fuses or any circuitry protection in Multisim, just be abstract.
->When connecting a displayer (HEX or BCD) do not mix up the digits, know your MSB and your LSB.
+>- Do not reverse the LED polarity and always check for a ground connection.
+>- You don't have to worry about resistors, fuses or any circuitry protection in Multisim, just be abstract.
+>- When connecting a displayer (HEX or BCD) do not mix up the digits, know your MSB and your LSB.
