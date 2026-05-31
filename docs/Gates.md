@@ -112,3 +112,32 @@ static bool XNOR(bool A, bool B)
 Here the same XOR logic is used except for the last gate which works as an inverter to the output which makes the XNOR operation.
 
 <img width="539" height="170" alt="image" src="https://github.com/user-attachments/assets/eecd7324-5095-4445-a175-2038fb00cc5e" />
+
+* **Tri-state Gate**: implemented using enum which describes the three states of the circuit, either LOW, HIGH, or High Impedance, its truth table looks like this:
+
+| EN | A | Out |
+| -- | - | --- |
+| 0  | X | Hi-Z|
+| 1  | 0 | 0   |
+| 1  | 1 | 1   |
+
+So if the Enable input is LOW, the output will not care about A, that's what X means, a don't care term, exactly an open circuit in a design, High impedance and no signal passes, see the following code snippet:
+```cpp
+enum TriState
+    {
+        LOW = 0,
+        HIGH = 1,
+        HIGH_Z
+    };
+
+    static TriState Tri_state(bool A, bool EN)
+    {
+        if (!EN)
+            return HIGH_Z;
+
+        return A ? HIGH : LOW;
+    }
+```
+Here if the Enable is low it outputs HIGH_Z, a state which no boolean value can express, so we used enum called TriState for this third state especially.
+
+<img width="250" height="179" alt="image" src="https://github.com/user-attachments/assets/04058a33-19a4-4965-a9d8-2b812b7e9fde" />
