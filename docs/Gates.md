@@ -7,4 +7,12 @@ This class focuses on implementing every logic gate using a universal logic gate
 
 ***NAND Gate***
 
-## Code Walkthrough
+## Truth Table & Boolean Expression
+| A | B | Y |
+| - | - | - |
+| 0 | 0 | 1 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
+| 1 | 1 | 0 |
+
+Y = (AB)` = A` + B` (using De Morgan's theorem) 
