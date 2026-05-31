@@ -17,22 +17,20 @@ bool combinational_circuits::Half_Adder(bool A, bool B)
 //Implementation of Full Adder circuit.
 vector<bool> combinational_circuits::Full_Adder(bool A, bool B, bool C)
 {
-    vector<bool> result(2);
     bool sum = Gates::XOR(Gates::XOR(A,B),C);
     bool carry = Gates::OR(Gates::AND(A,B),Gates::AND(Gates::XOR(A,B),C));
-    result[0] = sum;
-    result[1] = carry;
-    return result;
+    return {sum, carry};
 }
 
 //Implementation of 74HC283 IC 4-Bit Full Adder/Subtractor.
 vector<bool> combinational_circuits::_74HC283_(bitset<4> A, bitset<4> B, bool C_in, bool stat)
 {
     //XOR inputs, if stat == 1 -> (1's Compliment).
-    for (int i = 0; i < B.size(); i++)
-    {
-        B[i] = Gates::XOR(B[i], stat);
-    }
+    B[0] = Gates::XOR(B[0], stat);
+    B[1] = Gates::XOR(B[1], stat);
+    B[2] = Gates::XOR(B[2], stat);
+    B[3] = Gates::XOR(B[3], stat);
+
     C_in = stat; //If stat == 1, the carry will add 1 to the LSBs (2's Compliment).
     vector<bool> result(5);
     vector<bool> sum = {0b0,C_in};
@@ -47,16 +45,20 @@ vector<bool> combinational_circuits::_74HC283_(bitset<4> A, bitset<4> B, bool C_
 }
 
 //Implementation of Identity Comparator.
-bitset<1> combinational_circuits::Equality_Comparator(bitset<4> A, bitset<4> B)
+bool combinational_circuits::Identity_Comparator(bitset<4> A, bitset<4> B)
 {
-    bitset<1> result;
-    for (int i = A.size() - 1; i >= 0; i--)
-    {
-       //XNOR every bit in A and B
-        if (Gates::XNOR(A[i], B[i]) == 0b0) //If the result of XNOR is zero -> A != B.
-            return 0b0;
-    }
-    return 0b1;
+    bool result;
+    result = Gates::AND(
+                 Gates::AND(
+                     Gates::XNOR(A[0], B[0]),
+                     Gates::XNOR(A[1], B[1])
+                 ),
+                 Gates::AND(
+                     Gates::XNOR(A[2], B[2]),
+                     Gates::XNOR(A[3], B[3])
+                 )
+              );
+    return result;
 }
 
 //Implementation of 74HC85 8-bit Magnitude Comparator.
