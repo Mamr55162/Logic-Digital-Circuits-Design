@@ -17,3 +17,6 @@
 Sum = A $\oplus$ B $\oplus$ C
 
 Carry = ( A $\cdot$ B ) + ( A $\oplus$ B) $\cdot$ C
+
+## Circuit Structure
+![Full Adder](https://www.build-electronic-circuits.com/wp-content/uploads/2022/10/fullAdder-1.png)
