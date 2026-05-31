@@ -9,5 +9,6 @@ for adding the two bits, & AND gate for computing the carry.
 | 0 | 1 |  1  |   0   |
 | 1 | 0 |  1  |   0   |
 | 1 | 1 |  0  |   1   |
+
 Sum = A $\oplus$ B
 Carry = A $\cdot$ B
