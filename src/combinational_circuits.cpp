@@ -9,7 +9,6 @@ vector<bool> combinational_circuits::Half_Adder(bool A, bool B)
     //Compute addition by XORing and carry by ANDing.
     bool sum = Gates::XOR(A,B);
     bool carry = Gates::AND(A, B);
-    cout << sum << " " << carry;
     return {sum, carry};
 }
 
