@@ -127,21 +127,11 @@ public:
 };
 
 
-//Universal gate NAND implementation.
-/*
-class NAND
-{
-public:
-  static bool compute(bool A, bool B)
-   {
-      return !(A & B);
-   }
-};
-*/
 //Implement NOT, OR, AND, NOR, XOR, XNOR, Tri-state gates using NAND gate only.
 class Gates
 {
 public:
+   //Universal NAND implementation
    static bool NAND(bool A, bool B)
    {
       return !(A & B);
