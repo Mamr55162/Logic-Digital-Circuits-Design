@@ -37,6 +37,7 @@ A  B | F
 ```
 
 <img width="1418" height="385" alt="image" src="https://github.com/user-attachments/assets/0afb3679-40c5-4102-92d6-f8ddfdf3cb61" />
+
 ***Truth Table generated***
 
 
@@ -83,3 +84,7 @@ Expected Output:
 ```text
 A'B + AB'
 ```
+
+<img width="1117" height="303" alt="image" src="https://github.com/user-attachments/assets/0706f3bf-3eab-46fa-9698-65fa05b449ae" />
+
+***SOP Expression from truth table***
