@@ -335,8 +335,8 @@ The following list contains all the details about logic converters in Multisim:
 
 <img width="575" height="382" alt="image" src="https://github.com/user-attachments/assets/d5bfc4e4-c559-4eca-a5b0-dac0dd0bc1b2" />
 
-***Logic converter window, inputs are A & B, output is the OR gate in A'B + AB'***
 
+***Logic converter window, inputs are A & B, output is the OR gate in A'B + AB'***
 
 In the Conversions list you can choose:
 
