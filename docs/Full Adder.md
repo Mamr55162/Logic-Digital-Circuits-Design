@@ -67,4 +67,5 @@ The Logic Converter can be connected to:
 
 
 >[!Note]
-> Do not connect the Logic Converter pins directly to the Vcc before the DIP switch, connect them with a junction after the DIP switch.
+> - Do not connect the Logic Converter pins directly to the Vcc before the DIP switch, connect them with a junction after the DIP switch.
+> - The DIP switches can be controlled by pressing the buttons labeled as "Key = " under the switch symbol.
