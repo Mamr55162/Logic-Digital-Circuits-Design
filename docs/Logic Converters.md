@@ -298,3 +298,24 @@ The difference here is that we use another approach, here we loop through the ar
 <img width="1396" height="443" alt="Screenshot 2026-06-05 022545" src="https://github.com/user-attachments/assets/5580240e-da90-4d0a-80de-d9e236979cee" />
 
 ***The truth table for both expressions A'B'C + A'BC + AB'C' + AB'C and (A+B+C)(A+B'+C)(A'+B'+C)(A'+B'+C')***
+
+## Four-input Logic Converter
+We will use the same method we used for the three-input logic converter, we will explain only the tweaks and new things to the functions.
+* **Truth Table Generator**:
+The tweak in this function is that we use bitwise and shifting operations to generate a truth table rather than 16 lines of std::cout, for the rightmost column (LSB) we use the bitwise AND operator, which determines if the number is odd or even by doing an AND operation between the bits of this number and the bits of the number 1, which is 0001, we use that because the least significant bit in the table is the fastest switching one, it switches states every row, in the second least significant bit we shift the binary digits by one digit to the right, if you write the binary digits you would notice that every two digits have the exact same second least significant bit, by shifting it to the right it becomes the LSB, and by doing another bitwise AND operation you will end up having a column that switches state every two rows, moving to the last column ( the leftmost ) you will notice that every 8 digits have the exact same MSB, so by shifting 3 digits to the right that MSB becomes LSB and we do another bitwise AND operation, you get a column that switches states every 8 rows, and that's how we generate the 4-input truth table from the following code snippet:
+```cpp
+static void TruthTable(
+      bool o1,  bool o2,  bool o3,  bool o4,
+      bool o5,  bool o6,  bool o7,  bool o8,
+      bool o9,  bool o10, bool o11, bool o12,
+      bool o13, bool o14, bool o15, bool o16)
+   {
+      cout << "A  B  C  D | F\n";
+      const bool outs[16]={o1,o2,o3,o4,o5,o6,o7,o8,
+                            o9,o10,o11,o12,o13,o14,o15,o16};
+      for(int i=0;i<16;++i)
+         cout<<((i>>3)&1)<<"  "<<((i>>2)&1)<<"  "
+             <<((i>>1)&1)<<"  "<<(i&1)<<"  | "<<outs[i]<<"\n";
+   }
+```
+All other functions are the exact same as three-input logic converter but cascaded to contain four inputs so we will not be discussing them, see the provided codes in the **src/** directory for more details/
