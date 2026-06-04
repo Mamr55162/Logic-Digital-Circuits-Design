@@ -239,3 +239,4 @@ Then finally the output line.
 
 ***NAND Construction of A'B + AB' in Multisim using HEADERS_TEST from Connections group***
 
+## Three-input Logic Converter
