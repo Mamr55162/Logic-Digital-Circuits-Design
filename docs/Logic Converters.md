@@ -1,4 +1,4 @@
-# Logic Converters classes
+# Logic Converters Classes
 ## Overview
 These are 3 classes of Logic Converters that produce multiple options the user can choose from, starting from two inputs up to 4 inputs, I will also provide a Multisim guide on how to use Logic Converters.
 **Logic Converters can:**
