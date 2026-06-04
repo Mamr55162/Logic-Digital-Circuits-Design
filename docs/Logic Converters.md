@@ -233,8 +233,8 @@ Then finally the output line.
 The following code snippet provides an example:
 ```cpp
 twoLogicConverter::SOP_GateConstruction(0,1,1,0);
- twoLogicConverter::POS_GateConstruction(0,1,1,0);
- twoLogicConverter::NANDConstruction(0,1,1,0);
+twoLogicConverter::POS_GateConstruction(0,1,1,0);
+twoLogicConverter::NANDConstruction(0,1,1,0);
 ```
 Expected Output:
 ```text
@@ -281,5 +281,20 @@ static string SOP_Expression(bool o1, bool o2, bool o3, bool o4,
       return exp.empty() ? "0" : exp;
    }
 ```
+### Example Usage
+The following code snippet provides an example:
+```cpp
+    cout << threeLogicConverter::SOP_Expression(0,1,0,1,1,1,0,0);
+    cout << "\n" << threeLogicConverter::POS_Expression(0,1,0,1,1,1,0,0);
+```
+Expected Output:
+```text
+A'B'C + A'BC + AB'C' + AB'C
+(A+B+C)(A+B'+C)(A'+B'+C)(A'+B'+C')
+```
 * **SOP & POS Gate Construction**:
 The difference here is that we use another approach, here we loop through the array of outputs and each output we add one to the AND_count if SOP, OR_count if POS, and we declare three boolean variables to detect whether we need a NOT gate for A, B or C, if the expression is anywhere less than 4 so A needs a NOT gate, if it is in ( 0,1,4,5 ) then B needs a NOT gate, if it is in ( 0,2,4,6 ) then C needs a NOT gate, to understand this mechanism refer to a three-input truth table, this logic applies for SOP, the same applies with POS with differences in the NOT gates conditions, after that we count how many NOT_count we need and apply the same formula we used before to get the OR_count from AND_count if using SOP, or the AND_count from OR_count if using POS.
+
+<img width="1396" height="443" alt="Screenshot 2026-06-05 022545" src="https://github.com/user-attachments/assets/5580240e-da90-4d0a-80de-d9e236979cee" />
+
+***The truth table for both expressions A'B'C + A'BC + AB'C' + AB'C and (A+B+C)(A+B'+C)(A'+B'+C)(A'+B'+C')***
