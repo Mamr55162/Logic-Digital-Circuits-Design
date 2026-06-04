@@ -219,4 +219,10 @@ In these three functions, we try to compute the number of gates needed to constr
    }
 
 ```
-In the first function we initialize all three variables with zeros, then we start our if conditions and each term we meet we add one to the count of the AND gates, if we encounter the first term ( 0 0 ), we need two NOT gates to get A'B', and to count the OR gates we use a general formula that applies to all inputs which states: **$OR_{count} = AND_{count} - 1$**
+In the first function we initialize all three variables with zeros, then we start our if conditions and each term we meet we add one to the count of the AND gates, if we encounter the first term ( 0 0 ), we need two NOT gates to get A'B', and to count the OR gates we use a general formula that applies to all inputs which states: **$OR_{count} = AND_{count} - 1$**, and finally we output the counts of each gate, the POS function is exactly the same as the SOP but we need two NOT gates in the case of the last combination ( 1 1 ), and the mentioned general equation would be reversed: **$AND_{count} = OR_{count} - 1$**.
+As for the NAND construction method it is commonly used in real logic converters, because NAND is well-known as the universal gate, in our function we have 4 variables:
+- nand_NOT, which indicates the number of NOT gates used for inputs.
+- nand_terms, which is the number of 2-input NAND gates required to perform the AND operation on the minterms. Each term represents a product of variables.
+- nand_final, An additional NAND gate to combine all the minterm outputs into one final ORed result using ternary if to determine its value.
+- total, The total number of NAND gates needed.
+Then finally the output line.
