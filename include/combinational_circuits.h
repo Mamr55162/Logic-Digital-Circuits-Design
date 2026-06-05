@@ -10,614 +10,649 @@ using namespace std;
 class Wire
 {
 private:
-   bool value = false;
+    bool value = false;
 
 public:
-   void set(bool v) { value = v; }
-   bool get() const { return value; }
+    void set(bool v) { value = v; }
+    bool get() const { return value; }
 };
 
 //Multiple Indicators class.
 class Indicator
 {
 public:
-   //Use LED as indicator for HIGH (1) and LOW (0) outputs.
-   static void LED(bool val)
-   {
-      if (val == true)
-         cout << "LED is ON\n";
-      else
-         cout << "LED is OFF\n";
-   }
-   //Print the binary value(s).
-   static void Binary(bool val)
-   {
-      cout << val;
-   }
-   static void BinaryVector(const vector<bool>& bits)
-   {
-      for (bool b : bits)
-         cout << b;
+    //Use LED as indicator for HIGH (1) and LOW (0) outputs.
+    static void LED(bool val)
+    {
+        if (val == true)
+            cout << "LED is ON\n";
+        else
+            cout << "LED is OFF\n";
+    }
 
-      cout << '\n';
-   }
-   //Detect whether a wire is HIGH (1) or LOW (0).
-   static void Probe(bool val)
-   {
-      cout << (val ? "HIGH" : "LOW") << endl;
-   }
-   //Print decimal equivalent of BCD.
-   static void Decimal(const bitset<4>& bcd)
-   {
-      cout << bcd.to_ulong() << endl;
-   }
-   //Bus Monitor.
-   static void Bus(const bitset<4>& bus)
-   {
-      cout << "BUS: " << bus << endl;
-   }
+    //Print the binary value(s).
+    static void Binary(bool val)
+    {
+        cout << val;
+    }
+
+    static void BinaryVector(const vector<bool>& bits)
+    {
+        for (bool b : bits)
+            cout << b;
+
+        cout << '\n';
+    }
+
+    //Detect whether a wire is HIGH (1) or LOW (0).
+    static void Probe(bool val)
+    {
+        cout << (val ? "HIGH" : "LOW") << endl;
+    }
+
+    //Print decimal equivalent of BCD.
+    static void Decimal(const bitset<4>& bcd)
+    {
+        cout << bcd.to_ulong() << endl;
+    }
+
+    //Bus Monitor.
+    static void Bus(const bitset<4>& bus)
+    {
+        cout << "BUS: " << bus << endl;
+    }
 };
 
 class twoLogicConverter
 {
 public:
-   //Construct and show Truth Table from given outputs.
-   static void TruthTable(bool out1,bool out2,bool out3,bool out4)
-   {
-      cout << "A  B | F\n";
-      cout << "0  0 | " << out1 << "\n";
-      cout << "0  1 | " << out2 << "\n";
-      cout << "1  0 | " << out3 << "\n";
-      cout << "1  1 | " << out4 << "\n";
-   }
-   //Derive the SOP Expression from truth table.
-   static string SOP_Expression(bool out1,bool out2,bool out3,bool out4)
-   {
-      string exp;
-      if (out1 == true)
-         exp += "A'B'";
-      if (out2 == true)
-      {
-         if (out1 == true) // if there is a previous term add '+' between them.
-            exp += " + A'B";
-         else
-            exp += "A'B";
-      }
-      if (out3 == true)
-      {
-         if (out1 == true || out2 == true)
-            exp += " + AB'";
-         else
-            exp += "AB'";
-      }
-      if (out4 == true)
-      {
-         if (out1 == true || out2 == true || out3 == true)
-            exp += " + AB";
-         else
-            exp += "AB";
-      }
-      return exp.empty() ? "0" : exp;
-   }
-   //Derive the POS Expression from truth table.
-   static string POS_Expression(bool out1,bool out2,bool out3,bool out4)
-   {
-      string exp;
-      if (out1 == false)
-         exp += "(A+B)";
-      if (out2 == false)
-         exp += "(A+B')";
-      if (out3 == false)
-         exp += "(A'+B)";
-      if (out4 == false)
-         exp += "(A'+B')";
-      return exp.empty() ? "1" : exp;
-   }
-   //Compute and show the number of gates needed to construct an SOP expression.
-   static void SOP_GateConstruction(bool out1,bool out2,bool out3,bool out4)
-   {
-      int NOT_count = 0, AND_count = 0, OR_count = 0;
-      if (out2 == true)
-      {
-         AND_count++;
-         NOT_count++;
-      }
-      if (out3 == true)
-      {
-         AND_count++;
-         NOT_count++;
-      }
-      if (out1 == true)
-      {
-         AND_count++;
-         NOT_count = 2;
-      }
-      if (out4 == true)
-         AND_count++;
-      if (AND_count > 1)
-         OR_count = AND_count - 1;
-      cout << "Construction : " << NOT_count << " NOT Gates, " << AND_count << " AND Gates, " << OR_count <<
-         " OR Gates\n";
-   }
-   //Compute and show the number of gates needed to construct an POS expression.
-   static void POS_GateConstruction(bool out1,bool out2,bool out3,bool out4)
-   {
-      int NOT_count = 0, AND_count = 0, OR_count = 0;
-      if (out1 == false)
-         OR_count++;
-      if (out2 == false)
-      {
-         OR_count++;
-         NOT_count ++;
-      }
-      if (out3 == false)
-      {
-         OR_count++;
-         NOT_count++;
-      }
-      if (out4 == false)
-      {
-         OR_count++;
-         NOT_count = 2;
-      }
-      if (OR_count > 1)
-         AND_count = OR_count - 1;
-      cout << "Construction : " << NOT_count << " NOT Gates, " << AND_count << " AND Gates, " << OR_count <<
-         " OR Gates\n";
+    //Construct and show Truth Table from given outputs.
+    static void TruthTable(bool out1, bool out2, bool out3, bool out4)
+    {
+        cout << "A  B | F\n";
+        cout << "0  0 | " << out1 << "\n";
+        cout << "0  1 | " << out2 << "\n";
+        cout << "1  0 | " << out3 << "\n";
+        cout << "1  1 | " << out4 << "\n";
+    }
 
-   }
-   //Compute and show the number of NAND gates needed to construct an expression.
-   static void NANDConstruction(bool out1,bool out2,bool out3,bool out4)
-   {
-      int terms = 0;
+    //Derive the SOP Expression from truth table.
+    static string SOP_Expression(bool out1, bool out2, bool out3, bool out4)
+    {
+        string exp;
+        if (out1)
+            exp += "A'B'";
+        if (out2)
+        {
+            if (out1) // if there is a previous term add '+' between them.
+                exp += " + A'B";
+            else
+                exp += "A'B";
+        }
+        if (out3)
+        {
+            if (out1 || out2)
+                exp += " + AB'";
+            else
+                exp += "AB'";
+        }
+        if (out4)
+        {
+            if (out1 || out2 || out3)
+                exp += " + AB";
+            else
+                exp += "AB";
+        }
+        return exp.empty() ? "0" : exp;
+    }
 
-      if(out1) terms++;
-      if(out2) terms++;
-      if(out3) terms++;
-      if(out4) terms++;
+    //Derive the POS Expression from truth table.
+    static string POS_Expression(bool out1, bool out2, bool out3, bool out4)
+    {
+        string exp;
+        if (!out1)
+            exp += "(A+B)";
+        if (!out2)
+            exp += "(A+B')";
+        if (!out3)
+            exp += "(A'+B)";
+        if (!out4)
+            exp += "(A'+B')";
+        return exp.empty() ? "1" : exp;
+    }
 
-      // A' and B'
-      int nand_NOT = 2;
+    //Compute and show the number of gates needed to construct an SOP expression.
+    static void SOP_GateConstruction(bool out1, bool out2, bool out3, bool out4)
+    {
+        int NOT_count = 0, AND_count = 0, OR_count = 0;
+        if (out2)
+        {
+            AND_count++;
+            NOT_count++;
+        }
+        if (out3)
+        {
+            AND_count++;
+            NOT_count++;
+        }
+        if (out1)
+        {
+            AND_count++;
+            NOT_count = 2;
+        }
+        if (out4)
+            AND_count++;
+        if (AND_count > 1)
+            OR_count = AND_count - 1;
+        cout << "Construction : " << NOT_count << " NOT Gates, " << AND_count << " AND Gates, " << OR_count <<
+            " OR Gates\n";
+    }
 
-      // Each minterm generated by NAND
-      int nand_terms = terms;
+    //Compute and show the number of gates needed to construct an POS expression.
+    static void POS_GateConstruction(bool out1, bool out2, bool out3, bool out4)
+    {
+        int NOT_count = 0, AND_count = 0, OR_count = 0;
+        if (!out1)
+            OR_count++;
+        if (!out2)
+        {
+            OR_count++;
+            NOT_count++;
+        }
+        if (!out3)
+        {
+            OR_count++;
+            NOT_count++;
+        }
+        if (!out4)
+        {
+            OR_count++;
+            NOT_count = 2;
+        }
+        if (OR_count > 1)
+            AND_count = OR_count - 1;
+        cout << "Construction : " << NOT_count << " NOT Gates, " << AND_count << " AND Gates, " << OR_count <<
+            " OR Gates\n";
+    }
 
-      // Final NAND combination
-      int nand_final = (terms > 1) ? 1 : 0;
+    //Compute and show the number of NAND gates needed to construct an expression.
+    static void NANDConstruction(bool out1, bool out2, bool out3, bool out4)
+    {
+        int terms = 0;
 
-      int total = nand_NOT + nand_terms + nand_final;
+        if (out1) terms++;
+        if (out2) terms++;
+        if (out3) terms++;
+        if (out4) terms++;
 
-      cout << "NAND Construction : "
-           << total << " NAND Gates\n";
-   }
+        // A' and B'
+        int nand_NOT = 2;
+
+        // Each minterm generated by NAND
+        int nand_terms = terms;
+
+        // Final NAND combination
+        int nand_final = (terms > 1) ? 1 : 0;
+
+        int total = nand_NOT + nand_terms + nand_final;
+
+        cout << "NAND Construction : "
+            << total << " NAND Gates\n";
+    }
 };
 
 class threeLogicConverter
 {
 public:
-   static void TruthTable(bool o1, bool o2, bool o3, bool o4,
-                          bool o5, bool o6, bool o7, bool o8)
-   {
-      cout << "A  B  C | F\n";
-      cout << "0  0  0 | " << o1 << "\n";
-      cout << "0  0  1 | " << o2 << "\n";
-      cout << "0  1  0 | " << o3 << "\n";
-      cout << "0  1  1 | " << o4 << "\n";
-      cout << "1  0  0 | " << o5 << "\n";
-      cout << "1  0  1 | " << o6 << "\n";
-      cout << "1  1  0 | " << o7 << "\n";
-      cout << "1  1  1 | " << o8 << "\n";
-   }
-   static string SOP_Expression(bool o1, bool o2, bool o3, bool o4,
-                          bool o5, bool o6, bool o7, bool o8)
-   {
-      string exp;
-      const string terms[8] = {
-         "A'B'C'", "A'B'C", "A'BC'", "A'BC",
-         "AB'C'",  "AB'C",  "ABC'",  "ABC"
-      };
-      const bool output[8] = {o1,o2,o3,o4,o5,o6,o7,o8};
-      for (int i = 0; i < 8; i++)
-      {
-         if (output[i])
-         {
-            if (!exp.empty()) exp += " + ";
-            exp += terms[i];
-         }
-      }
-      return exp.empty() ? "0" : exp;
-   }
+    static void TruthTable(bool o1, bool o2, bool o3, bool o4,
+                           bool o5, bool o6, bool o7, bool o8)
+    {
+        cout << "A  B  C | F\n";
+        cout << "0  0  0 | " << o1 << "\n";
+        cout << "0  0  1 | " << o2 << "\n";
+        cout << "0  1  0 | " << o3 << "\n";
+        cout << "0  1  1 | " << o4 << "\n";
+        cout << "1  0  0 | " << o5 << "\n";
+        cout << "1  0  1 | " << o6 << "\n";
+        cout << "1  1  0 | " << o7 << "\n";
+        cout << "1  1  1 | " << o8 << "\n";
+    }
 
-   static string POS_Expression(bool o1, bool o2, bool o3, bool o4,
-                          bool o5, bool o6, bool o7, bool o8)
-   {
-      string exp;
-      const string terms[8] = {
-         "(A+B+C)",    "(A+B+C')",
-         "(A+B'+C)",   "(A+B'+C')",
-         "(A'+B+C)",   "(A'+B+C')",
-         "(A'+B'+C)",  "(A'+B'+C')"
-      };
-      const bool output[8] = {o1,o2,o3,o4,o5,o6,o7,o8};
-      for (int i = 0; i < 8; i++)
-      {
-         if (!output[i])
-            exp += terms[i];
-      }
-      return exp.empty() ? "1" : exp;
-   }
-   static void SOP_GateConstruction(bool o1, bool o2, bool o3, bool o4,
+    static string SOP_Expression(bool o1, bool o2, bool o3, bool o4,
                                  bool o5, bool o6, bool o7, bool o8)
-   {
-      bool output[8] = {o1,o2,o3,o4,o5,o6,o7,o8};
+    {
+        string exp;
+        const string terms[8] = {
+            "A'B'C'", "A'B'C", "A'BC'", "A'BC",
+            "AB'C'", "AB'C", "ABC'", "ABC"
+        };
+        const bool output[8] = {o1, o2, o3, o4, o5, o6, o7, o8};
+        for (int i = 0; i < 8; i++)
+        {
+            if (output[i])
+            {
+                if (!exp.empty()) exp += " + ";
+                exp += terms[i];
+            }
+        }
+        return exp.empty() ? "0" : exp;
+    }
 
-      int AND_count = 0;
-      int OR_count = 0;
-
-      bool needA = false;
-      bool needB = false;
-      bool needC = false;
-
-      // Check active minterms
-      for(int i = 0; i < 8; i++)
-      {
-         if(output[i])
-         {
-            AND_count++;
-
-            // Detect complemented literals
-            if(i < 4) needA = true;
-
-            if(i == 0 || i == 1 || i == 4 || i == 5)
-               needB = true;
-
-            if(i == 0 || i == 2 || i == 4 || i == 6)
-               needC = true;
-         }
-      }
-
-      int NOT_count = needA + needB + needC;
-
-      if(AND_count > 1)
-         OR_count = AND_count - 1;
-
-      cout << "SOP Construction : "
-           << NOT_count << " NOT Gates, "
-           << AND_count << " AND Gates, "
-           << OR_count << " OR Gates\n";
-   }
-   static void POS_GateConstruction(bool o1, bool o2, bool o3, bool o4,
+    static string POS_Expression(bool o1, bool o2, bool o3, bool o4,
                                  bool o5, bool o6, bool o7, bool o8)
-   {
-      bool output[8] = {o1,o2,o3,o4,o5,o6,o7,o8};
+    {
+        string exp;
+        const string terms[8] = {
+            "(A+B+C)", "(A+B+C')",
+            "(A+B'+C)", "(A+B'+C')",
+            "(A'+B+C)", "(A'+B+C')",
+            "(A'+B'+C)", "(A'+B'+C')"
+        };
+        const bool output[8] = {o1, o2, o3, o4, o5, o6, o7, o8};
+        for (int i = 0; i < 8; i++)
+        {
+            if (!output[i])
+                exp += terms[i];
+        }
+        return exp.empty() ? "1" : exp;
+    }
 
-      int OR_count = 0;
-      int AND_count = 0;
+    static void SOP_GateConstruction(bool o1, bool o2, bool o3, bool o4,
+                                     bool o5, bool o6, bool o7, bool o8)
+    {
+        bool output[8] = {o1, o2, o3, o4, o5, o6, o7, o8};
 
-      bool needA = false;
-      bool needB = false;
-      bool needC = false;
+        int AND_count = 0;
+        int OR_count = 0;
 
-      for(int i = 0; i < 8; i++)
-      {
-         if(!output[i])
-         {
-            OR_count++;
+        bool needA = false;
+        bool needB = false;
+        bool needC = false;
 
-            // Detect complemented literals in POS
+        // Check active minterms
+        for (int i = 0; i < 8; i++)
+        {
+            if (output[i])
+            {
+                AND_count++;
 
-            if(i >= 4) needA = true;
+                // Detect complemented literals
+                if (i < 4) needA = true;
 
-            if(i == 2 || i == 3 || i == 6 || i == 7)
-               needB = true;
+                if (i == 0 || i == 1 || i == 4 || i == 5)
+                    needB = true;
 
-            if(i == 1 || i == 3 || i == 5 || i == 7)
-               needC = true;
-         }
-      }
+                if (i == 0 || i == 2 || i == 4 || i == 6)
+                    needC = true;
+            }
+        }
 
-      int NOT_count = needA + needB + needC;
+        int NOT_count = needA + needB + needC;
 
-      if(OR_count > 1)
-         AND_count = OR_count - 1;
+        if (AND_count > 1)
+            OR_count = AND_count - 1;
 
-      cout << "POS Construction : "
-           << NOT_count << " NOT Gates, "
-           << AND_count << " AND Gates, "
-           << OR_count << " OR Gates\n";
-   }
+        cout << "SOP Construction : "
+            << NOT_count << " NOT Gates, "
+            << AND_count << " AND Gates, "
+            << OR_count << " OR Gates\n";
+    }
+
+    static void POS_GateConstruction(bool o1, bool o2, bool o3, bool o4,
+                                     bool o5, bool o6, bool o7, bool o8)
+    {
+        bool output[8] = {o1, o2, o3, o4, o5, o6, o7, o8};
+
+        int OR_count = 0;
+        int AND_count = 0;
+
+        bool needA = false;
+        bool needB = false;
+        bool needC = false;
+
+        for (int i = 0; i < 8; i++)
+        {
+            if (!output[i])
+            {
+                OR_count++;
+
+                // Detect complemented literals in POS
+
+                if (i >= 4) needA = true;
+
+                if (i == 2 || i == 3 || i == 6 || i == 7)
+                    needB = true;
+
+                if (i == 1 || i == 3 || i == 5 || i == 7)
+                    needC = true;
+            }
+        }
+
+        int NOT_count = needA + needB + needC;
+
+        if (OR_count > 1)
+            AND_count = OR_count - 1;
+
+        cout << "POS Construction : "
+            << NOT_count << " NOT Gates, "
+            << AND_count << " AND Gates, "
+            << OR_count << " OR Gates\n";
+    }
 };
 
 class fourLogicConverter
 {
 public:
-   static void TruthTable(
-      bool o1,  bool o2,  bool o3,  bool o4,
-      bool o5,  bool o6,  bool o7,  bool o8,
-      bool o9,  bool o10, bool o11, bool o12,
-      bool o13, bool o14, bool o15, bool o16)
-   {
-      cout << "A  B  C  D | F\n";
-      const bool outs[16]={o1,o2,o3,o4,o5,o6,o7,o8,
-                            o9,o10,o11,o12,o13,o14,o15,o16};
-      for(int i=0;i<16;++i)
-         cout<<((i>>3)&1)<<"  "<<((i>>2)&1)<<"  "
-             <<((i>>1)&1)<<"  "<<(i&1)<<"  | "<<outs[i]<<"\n";
-   }
-   static string SOP_Expression(
-      bool o1,  bool o2,  bool o3,  bool o4,
-      bool o5,  bool o6,  bool o7,  bool o8,
-      bool o9,  bool o10, bool o11, bool o12,
-      bool o13, bool o14, bool o15, bool o16)
-   {
-      string exp;
-      const string terms[16] = {
-         "A'B'C'D'", "A'B'C'D", "A'B'CD'", "A'B'CD",
-         "A'BC'D'",  "A'BC'D",  "A'BCD'",  "A'BCD",
-         "AB'C'D'",  "AB'C'D",  "AB'CD'",  "AB'CD",
-         "ABC'D'",   "ABC'D",   "ABCD'",   "ABCD"
-      };
-      const bool output[16]={o1,o2,o3,o4,o5,o6,o7,o8,
-                            o9,o10,o11,o12,o13,o14,o15,o16};
-      for (int i = 0; i < 16; i++)
-      {
-         if (output[i])
-         {
-            if (!exp.empty())
-               exp += " + ";
-            exp += terms[i];
-         }
-      }
-      return exp.empty() ? "0" : exp;
-   }
-   static string POS_Expression(
-      bool o1,  bool o2,  bool o3,  bool o4,
-      bool o5,  bool o6,  bool o7,  bool o8,
-      bool o9,  bool o10, bool o11, bool o12,
-      bool o13, bool o14, bool o15, bool o16)
-   {
-      string exp;
-      const string terms[16] = {
-         "(A+B+C+D)",      "(A+B+C+D')",
-         "(A+B+C'+D)",     "(A+B+C'+D')",
-         "(A+B'+C+D)",     "(A+B'+C+D')",
-         "(A+B'+C'+D)",    "(A+B'+C'+D')",
-         "(A'+B+C+D)",     "(A'+B+C+D')",
-         "(A'+B+C'+D)",    "(A'+B+C'+D')",
-         "(A'+B'+C+D)",    "(A'+B'+C+D')",
-         "(A'+B'+C'+D)",   "(A'+B'+C'+D')"
-      };
-      const bool output[16]={o1,o2,o3,o4,o5,o6,o7,o8,
-                            o9,o10,o11,o12,o13,o14,o15,o16};
-      for (int i = 0; i < 16; i++)
-      {
-         if (!output[i])
-            exp += terms[i];
-      }
-      return exp.empty() ? "1" : exp;
-   }
-   static void SOP_GateConstruction(bool o1,  bool o2,  bool o3,  bool o4,
-                                 bool o5,  bool o6,  bool o7,  bool o8,
-                                 bool o9,  bool o10, bool o11, bool o12,
-                                 bool o13, bool o14, bool o15, bool o16)
-   {
-      bool output[16] =
-      {
-         o1,o2,o3,o4,
-         o5,o6,o7,o8,
-         o9,o10,o11,o12,
-         o13,o14,o15,o16
-     };
+    static void TruthTable(
+        bool o1, bool o2, bool o3, bool o4,
+        bool o5, bool o6, bool o7, bool o8,
+        bool o9, bool o10, bool o11, bool o12,
+        bool o13, bool o14, bool o15, bool o16)
+    {
+        cout << "A  B  C  D | F\n";
+        const bool outs[16] = {
+            o1, o2, o3, o4, o5, o6, o7, o8,
+            o9, o10, o11, o12, o13, o14, o15, o16
+        };
+        for (int i = 0; i < 16; ++i)
+            cout << ((i >> 3) & 1) << "  " << ((i >> 2) & 1) << "  "
+                << ((i >> 1) & 1) << "  " << (i & 1) << "  | " << outs[i] << "\n";
+    }
 
-      int AND_count = 0;
+    static string SOP_Expression(
+        bool o1, bool o2, bool o3, bool o4,
+        bool o5, bool o6, bool o7, bool o8,
+        bool o9, bool o10, bool o11, bool o12,
+        bool o13, bool o14, bool o15, bool o16)
+    {
+        string exp;
+        const string terms[16] = {
+            "A'B'C'D'", "A'B'C'D", "A'B'CD'", "A'B'CD",
+            "A'BC'D'", "A'BC'D", "A'BCD'", "A'BCD",
+            "AB'C'D'", "AB'C'D", "AB'CD'", "AB'CD",
+            "ABC'D'", "ABC'D", "ABCD'", "ABCD"
+        };
+        const bool output[16] = {
+            o1, o2, o3, o4, o5, o6, o7, o8,
+            o9, o10, o11, o12, o13, o14, o15, o16
+        };
+        for (int i = 0; i < 16; i++)
+        {
+            if (output[i])
+            {
+                if (!exp.empty())
+                    exp += " + ";
+                exp += terms[i];
+            }
+        }
+        return exp.empty() ? "0" : exp;
+    }
 
-      bool needA = false;
-      bool needB = false;
-      bool needC = false;
-      bool needD = false;
+    static string POS_Expression(
+        bool o1, bool o2, bool o3, bool o4,
+        bool o5, bool o6, bool o7, bool o8,
+        bool o9, bool o10, bool o11, bool o12,
+        bool o13, bool o14, bool o15, bool o16)
+    {
+        string exp;
+        const string terms[16] = {
+            "(A+B+C+D)", "(A+B+C+D')",
+            "(A+B+C'+D)", "(A+B+C'+D')",
+            "(A+B'+C+D)", "(A+B'+C+D')",
+            "(A+B'+C'+D)", "(A+B'+C'+D')",
+            "(A'+B+C+D)", "(A'+B+C+D')",
+            "(A'+B+C'+D)", "(A'+B+C'+D')",
+            "(A'+B'+C+D)", "(A'+B'+C+D')",
+            "(A'+B'+C'+D)", "(A'+B'+C'+D')"
+        };
+        const bool output[16] = {
+            o1, o2, o3, o4, o5, o6, o7, o8,
+            o9, o10, o11, o12, o13, o14, o15, o16
+        };
+        for (int i = 0; i < 16; i++)
+        {
+            if (!output[i])
+                exp += terms[i];
+        }
+        return exp.empty() ? "1" : exp;
+    }
 
-      for(int i = 0; i < 16; i++)
-      {
-         if(output[i])
-         {
-            AND_count++;
+    static void SOP_GateConstruction(bool o1, bool o2, bool o3, bool o4,
+                                     bool o5, bool o6, bool o7, bool o8,
+                                     bool o9, bool o10, bool o11, bool o12,
+                                     bool o13, bool o14, bool o15, bool o16)
+    {
+        bool output[16] =
+        {
+            o1, o2, o3, o4,
+            o5, o6, o7, o8,
+            o9, o10, o11, o12,
+            o13, o14, o15, o16
+        };
 
-            // A = 0
-            if(i < 8)
-               needA = true;
+        int AND_count = 0;
 
-            // B = 0
-            if(i < 4 || (i >= 8 && i < 12))
-               needB = true;
+        bool needA = false;
+        bool needB = false;
+        bool needC = false;
+        bool needD = false;
 
-            // C = 0
-            if((i % 8) < 2 || ((i % 8) >= 4 && (i % 8) < 6))
-               needC = true;
+        for (int i = 0; i < 16; i++)
+        {
+            if (output[i])
+            {
+                AND_count++;
 
-            // D = 0
-            if(i % 2 == 0)
-               needD = true;
-         }
-      }
+                // A = 0
+                if (i < 8)
+                    needA = true;
 
-      int NOT_count = needA + needB + needC + needD;
+                // B = 0
+                if (i < 4 || (i >= 8 && i < 12))
+                    needB = true;
 
-      // Multi-input OR gate
-      int OR_count = (AND_count > 1) ? AND_count - 1 : 0;
+                // C = 0
+                if ((i % 8) < 2 || ((i % 8) >= 4 && (i % 8) < 6))
+                    needC = true;
 
-      cout << "SOP Construction : "
-           << NOT_count << " NOT Gates, "
-           << AND_count << " AND Gates, "
-           << OR_count << " OR Gates\n";
-   }
-   static void POS_GateConstruction(bool o1,  bool o2,  bool o3,  bool o4,
-                                 bool o5,  bool o6,  bool o7,  bool o8,
-                                 bool o9,  bool o10, bool o11, bool o12,
-                                 bool o13, bool o14, bool o15, bool o16)
-   {
-      bool output[16] =
-      {
-         o1,o2,o3,o4,
-         o5,o6,o7,o8,
-         o9,o10,o11,o12,
-         o13,o14,o15,o16
-     };
+                // D = 0
+                if (i % 2 == 0)
+                    needD = true;
+            }
+        }
 
-      int OR_count = 0;
+        int NOT_count = needA + needB + needC + needD;
 
-      bool needA = false;
-      bool needB = false;
-      bool needC = false;
-      bool needD = false;
+        // Multi-input OR gate
+        int OR_count = (AND_count > 1) ? AND_count - 1 : 0;
 
-      for(int i = 0; i < 16; i++)
-      {
-         if(!output[i])
-         {
-            OR_count++;
+        cout << "SOP Construction : "
+            << NOT_count << " NOT Gates, "
+            << AND_count << " AND Gates, "
+            << OR_count << " OR Gates\n";
+    }
 
-            // A'
-            if(i >= 8)
-               needA = true;
+    static void POS_GateConstruction(bool o1, bool o2, bool o3, bool o4,
+                                     bool o5, bool o6, bool o7, bool o8,
+                                     bool o9, bool o10, bool o11, bool o12,
+                                     bool o13, bool o14, bool o15, bool o16)
+    {
+        bool output[16] =
+        {
+            o1, o2, o3, o4,
+            o5, o6, o7, o8,
+            o9, o10, o11, o12,
+            o13, o14, o15, o16
+        };
 
-            // B'
-            if((i >= 4 && i < 8) || i >= 12)
-               needB = true;
+        int OR_count = 0;
 
-            // C'
-            if((i % 8) >= 2 && (i % 8) < 4 ||
-               (i % 8) >= 6)
-               needC = true;
+        bool needA = false;
+        bool needB = false;
+        bool needC = false;
+        bool needD = false;
 
-            // D'
-            if(i % 2 == 1)
-               needD = true;
-         }
-      }
+        for (int i = 0; i < 16; i++)
+        {
+            if (!output[i])
+            {
+                OR_count++;
 
-      int NOT_count = needA + needB + needC + needD;
+                // A'
+                if (i >= 8)
+                    needA = true;
 
-      // Multi-input AND gate
-      int AND_count = (OR_count > 1) ? OR_count - 1 : 0;
+                // B'
+                if ((i >= 4 && i < 8) || i >= 12)
+                    needB = true;
 
-      cout << "POS Construction : "
-           << NOT_count << " NOT Gates, "
-           << AND_count << " AND Gates, "
-           << OR_count << " OR Gates\n";
-   }
+                // C'
+                if ((i % 8) >= 2 && (i % 8) < 4 ||
+                    (i % 8) >= 6)
+                    needC = true;
+
+                // D'
+                if (i % 2 == 1)
+                    needD = true;
+            }
+        }
+
+        int NOT_count = needA + needB + needC + needD;
+
+        // Multi-input AND gate
+        int AND_count = (OR_count > 1) ? OR_count - 1 : 0;
+
+        cout << "POS Construction : "
+            << NOT_count << " NOT Gates, "
+            << AND_count << " AND Gates, "
+            << OR_count << " OR Gates\n";
+    }
 };
 
 //Print two-input gates truth tables.
 class TruthTable
 {
 public:
-   static void ANDTruthTable()
-   {
-      cout << "A  B | F\n";
-      cout << "0  0 | 0\n";
-      cout << "0  1 | 0\n";
-      cout << "1  0 | 0\n";
-      cout << "1  1 | 1\n";
-   }
-   static void ORTruthTable()
-   {
-      cout << "A  B | F\n";
-      cout << "0  0 | 0\n";
-      cout << "0  1 | 1\n";
-      cout << "1  0 | 1\n";
-      cout << "1  1 | 1\n";
-   }
-   static void NANDTruthTable()
-   {
-      cout << "A  B | F\n";
-      cout << "0  0 | 1\n";
-      cout << "0  1 | 1\n";
-      cout << "1  0 | 1\n";
-      cout << "1  1 | 0\n";
-   }
-   static void NORTruthTable()
-   {
-      cout << "A  B | F\n";
-      cout << "0  0 | 1\n";
-      cout << "0  1 | 0\n";
-      cout << "1  0 | 0\n";
-      cout << "1  1 | 0\n";
-   }
-   static void XORTruthTable()
-   {
-      cout << "A  B | F\n";
-      cout << "0  0 | 0\n";
-      cout << "0  1 | 1\n";
-      cout << "1  0 | 1\n";
-      cout << "1  1 | 0\n";
-   }
-   static void XNORTruthTable()
-   {
-      cout << "A  B | F\n";
-      cout << "0  0 | 1\n";
-      cout << "0  1 | 0\n";
-      cout << "1  0 | 0\n";
-      cout << "1  1 | 1\n";
-   }
-   static void NOTTruthTable()
-   {
-      cout << "A | F\n";
-      cout << "0 | 1\n";
-      cout << "1 | 0\n";
-   }
-   static void Tri_stateTruthTable()
-   {
-      cout << "EN  A | F\n";
-      cout << "0  0 | Hi-Z\n";
-      cout << "0  1 | Hi-z\n";
-      cout << "1  0 | 0\n";
-      cout << "1  1 | 1\n";
-   }
-};
+    static void ANDTruthTable()
+    {
+        cout << "A  B | F\n";
+        cout << "0  0 | 0\n";
+        cout << "0  1 | 0\n";
+        cout << "1  0 | 0\n";
+        cout << "1  1 | 1\n";
+    }
 
+    static void ORTruthTable()
+    {
+        cout << "A  B | F\n";
+        cout << "0  0 | 0\n";
+        cout << "0  1 | 1\n";
+        cout << "1  0 | 1\n";
+        cout << "1  1 | 1\n";
+    }
+
+    static void NANDTruthTable()
+    {
+        cout << "A  B | F\n";
+        cout << "0  0 | 1\n";
+        cout << "0  1 | 1\n";
+        cout << "1  0 | 1\n";
+        cout << "1  1 | 0\n";
+    }
+
+    static void NORTruthTable()
+    {
+        cout << "A  B | F\n";
+        cout << "0  0 | 1\n";
+        cout << "0  1 | 0\n";
+        cout << "1  0 | 0\n";
+        cout << "1  1 | 0\n";
+    }
+
+    static void XORTruthTable()
+    {
+        cout << "A  B | F\n";
+        cout << "0  0 | 0\n";
+        cout << "0  1 | 1\n";
+        cout << "1  0 | 1\n";
+        cout << "1  1 | 0\n";
+    }
+
+    static void XNORTruthTable()
+    {
+        cout << "A  B | F\n";
+        cout << "0  0 | 1\n";
+        cout << "0  1 | 0\n";
+        cout << "1  0 | 0\n";
+        cout << "1  1 | 1\n";
+    }
+
+    static void NOTTruthTable()
+    {
+        cout << "A | F\n";
+        cout << "0 | 1\n";
+        cout << "1 | 0\n";
+    }
+
+    static void Tri_stateTruthTable()
+    {
+        cout << "EN  A | F\n";
+        cout << "0  0 | Hi-Z\n";
+        cout << "0  1 | Hi-z\n";
+        cout << "1  0 | 0\n";
+        cout << "1  1 | 1\n";
+    }
+};
 
 
 //Implement NOT, OR, AND, NOR, XOR, XNOR, Tri-state gates using NAND gate only.
 class Gates
 {
 public:
-   static bool NAND(bool A, bool B)
-   {
-      return !(A & B);
-   }
-   static bool NOT(bool A)
-   {
-      return NAND(A, A);
-   }
-   static bool OR(bool A, bool B)
-   {
-      return NAND(NAND(A,A), NAND(B, B));
-   }
-   static bool AND(bool A, bool B)
-   {
-      return NAND(NAND(A, B), NAND(A, B));
-   }
-   static bool NOR(bool A, bool B)
-   {
-      return NAND(NAND(NAND(A, A), NAND(B, B)),
-                           NAND(NAND(A, A), NAND(B, B)));
-   }
-   static bool XOR(bool A, bool B)
-   {
-      bool x = NAND(A, B);
-      bool y = NAND(A, x);
-      bool z = NAND(B, x);
-      return NAND(y, z);
-   }
-   static bool XNOR(bool A, bool B)
-   {
-      bool x = NAND(A, B);
-      bool y = NAND(A, x);
-      bool z = NAND(B, x);
-      bool out_invert = NAND(y, z);
-      return NAND(out_invert, out_invert);
-   }
-  enum TriState
+    static bool NAND(bool A, bool B)
+    {
+        return !(A & B);
+    }
+
+    static bool NOT(bool A)
+    {
+        return NAND(A, A);
+    }
+
+    static bool OR(bool A, bool B)
+    {
+        return NAND(NAND(A, A), NAND(B, B));
+    }
+
+    static bool AND(bool A, bool B)
+    {
+        return NAND(NAND(A, B), NAND(A, B));
+    }
+
+    static bool NOR(bool A, bool B)
+    {
+        return NAND(NAND(NAND(A, A), NAND(B, B)),
+                    NAND(NAND(A, A), NAND(B, B)));
+    }
+
+    static bool XOR(bool A, bool B)
+    {
+        bool x = NAND(A, B);
+        bool y = NAND(A, x);
+        bool z = NAND(B, x);
+        return NAND(y, z);
+    }
+
+    static bool XNOR(bool A, bool B)
+    {
+        bool x = NAND(A, B);
+        bool y = NAND(A, x);
+        bool z = NAND(B, x);
+        bool out_invert = NAND(y, z);
+        return NAND(out_invert, out_invert);
+    }
+
+    enum TriState
     {
         LOW = 0,
         HIGH = 1,
@@ -636,20 +671,19 @@ public:
 
 class combinational_circuits
 {
-
 public:
-   static vector<bool> Half_Adder(bool A, bool B);
-   static vector<bool> Full_Adder(bool A, bool B, bool C);
-   static vector<bool> _74HC283_(bitset<4> A, bitset<4> B, bool C_in, bool stat);
-   static bool Identity_Comparator(bitset<4> A, bitset<4> B);
-   static vector<bool> _74HC85_(bitset<4> A, bitset<4> B, bool eq = 0b1, bool larger = 0b0, bool smaller = 0b0);
-   static bool MUX_4_to_1(bitset<4> A, bool S0, bool S1);
-   static vector<bool> _74HC151_(bitset<8> A, bool S0, bool S1, bool S2);
-   static vector<bool> Decoder_2_to_4(bool A, bool B);
-   static vector<bool> _74HC154_(bool A0, bool A1, bool A2, bool A3, bool EN);
-   static bool Decoder_to_MUX(bool S1, bool S0, bool I0, bool I1, bool I2, bool I3);
-   static vector<bool> _74HC42_(bool A0, bool A1, bool A2, bool A3);
-   static vector<bool> BCD_to_7_Segment(bool A0, bool A1, bool A2, bool A3, bool decimal);
+    static vector<bool> Half_Adder(bool A, bool B);
+    static vector<bool> Full_Adder(bool A, bool B, bool C);
+    static vector<bool> _74HC283_(bitset<4> A, bitset<4> B, bool C_in, bool stat);
+    static bool Identity_Comparator(bitset<4> A, bitset<4> B);
+    static vector<bool> _74HC85_(bitset<4> A, bitset<4> B, bool eq = 0b1, bool larger = 0b0, bool smaller = 0b0);
+    static bool MUX_4_to_1(bitset<4> A, bool S0, bool S1);
+    static vector<bool> _74HC151_(bitset<8> A, bool S0, bool S1, bool S2);
+    static vector<bool> Decoder_2_to_4(bool A, bool B);
+    static vector<bool> _74HC154_(bool A0, bool A1, bool A2, bool A3, bool EN);
+    static bool Decoder_to_MUX(bool S1, bool S0, bool I0, bool I1, bool I2, bool I3);
+    static vector<bool> _74HC42_(bool A0, bool A1, bool A2, bool A3);
+    static vector<bool> BCD_to_7_Segment(bool A0, bool A1, bool A2, bool A3, bool decimal);
 };
 
 
