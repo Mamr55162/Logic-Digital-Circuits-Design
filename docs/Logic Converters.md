@@ -330,7 +330,7 @@ In this last section of the document we will be introducing the logic converter 
 
 The following list contains all the details about logic converters in Multisim:
 - A logic converter can hold up to 8 inputs and only one output.
-- Input pins are labeled A,B,C,D,E,F,G,H starting from far right, the last pin ( leftmost pin ) is the output pin.
+- Input pins are labeled A,B,C,D,E,F,G,H starting from the left, the last pin ( rightmost pin ) is the output pin.
 - Connect the input pins to each of your inputs to the gates, whether you are using 5.0V Vcc sources or Interactive digital constant source.
 - Connect the output pin to the output of any gate you want to analyze.
 - Double click on the logic converter symbol to open it up and select from the Conversions list.
